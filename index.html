@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- ng-app is called "StarterApp"-->
+<html lang="en" ng-app="StarterApp">
+<!-- Heading -->
+  <head>
+    <!--- Links to include-->
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <meta name="viewport" content="initial-scale=1" />
+
+
+
+    <!-- Angular Material Dependencies -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
+
+    <script src="js/main.js"></script>
+    <!-- Title-->
+    <title>FNAF Quiz 2015</title>
+  </head>
+  <!-- Body (ng-controller is "AppCtrl")-->
+  <body layout="column" ng-controller="AppCtrl">
+    <!-- toolbar-->
+    <md-toolbar layout="row">
+      <h1 class="md-toolbar-tools" layout-align-gt-sm="center">FNAF QUIZ 2015: Level {{currentLevel}}</h1>
+    </md-toolbar>
+    <div layout="row" flex>
+        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+          <!-- Insert Timer-->
+          <h1><div id = "countdown" align = "center">{{time}}</div></h1>
+          <div align = "center"><h2>Score: {{grandTotal}}</h2></div>
+        </md-sidenav>
+        <div layout="column" flex id="content">
+            <md-content layout="column" flex class="md-padding">
+              <div>
+                <!-- Question Form-->
+                <form>
+                  <!-- Modal-->
+
+                  <!-- Question-->
+                  <div ng-repeat="question in currentQuestions">
+          <!-- ng-init divs:  storing and passing data-->
+                    <div ng-init="quizData[$index].correctAnswer=question.correctAnswer"></div>
+                    <div ng-init="quizData[$index].difficulty=question.difficulty"></div>
+                    <md-radio-group
+                      ng-model="quizData[$index].selectedAnswer"
+                      class="md-primary">
+                        {{question.label}}
+                        <md-radio-button ng-repeat="answer in question.answers"
+                                         ng-value="answer.value"
+                                          >
+                            {{ answer.label }}<br/>
+                        </md-radio-button>
+
+                    </md-radio-group>
+                  </div>
+                  <md-button class="md-raised" ng-click="submit(quizData)">Submit</md-button>
+                </form>
+              </div>
+            </md-content>
+        </div>
+    </div>
+  </body>
+</html>
